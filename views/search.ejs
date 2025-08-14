@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">مدير قواعد البيانات</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/search">بحث</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>البحث في قاعدة البيانات</h1>
+        <p>ابحث عن طريق البريد الإلكتروني، اسم المستخدم، أو أي كلمة مفتاحية.</p>
+
+        <form action="/search" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="أدخل مصطلح البحث..." name="term" value="<%= searchTerm %>" required>
+                <button class="btn btn-primary" type="submit">بحث</button>
+            </div>
+        </form>
+
+        <% if (searchTerm) { %>
+            <hr>
+            <h3>نتائج البحث عن: "<%= searchTerm %>"</h3>
+            <% if (results.length > 0) { %>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>النوع</th>
+                                <th>القيمة (بريد/يوزر)</th>
+                                <th>كلمة المرور</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% results.forEach(cred => { %>
+                                <tr>
+                                    <td><span class="badge bg-secondary"><%= cred.type %></span></td>
+                                    <td><%= cred.value %></td>
+                                    <td><%= cred.password %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                 <% if (results.length >= 100) { %>
+                    <div class="alert alert-warning">
+                        تم عرض أول 100 نتيجة فقط. قد تكون هناك نتائج أخرى، حاول تخصيص بحثك أكثر.
+                    </div>
+                <% } %>
+            <% } else { %>
+                <div class="alert alert-info">
+                    لم يتم العثور على نتائج تطابق بحثك.
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

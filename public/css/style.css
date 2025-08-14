@@ -1,0 +1,5 @@
+/* Custom styles for the application can go here */
+body {
+    direction: rtl;
+    text-align: right;
+}

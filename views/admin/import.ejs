@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - مدير قواعد البيانات</title>
+    <link rel="stylesheet" href="/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include('../partials/admin_nav') %>
+
+    <div class="container mt-4">
+        <h1>استيراد بيانات جديدة</h1>
+        <p>قم برفع ملف نصي يحتوي على بيانات الاعتماد (بريد:باسورد أو يوزر:باسورد). سيتم تجاهل الأسطر المكررة (نفس المستخدم بنفس كلمة المرور).</p>
+
+        <% if (stats) { %>
+            <div class="alert alert-success">
+                <h4>اكتملت المعالجة!</h4>
+                <p><%= stats.message %></p>
+            </div>
+        <% } %>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/admin/import" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="dataFile" class="form-label">ملف البيانات (.txt)</label>
+                        <input class="form-control" type="file" id="dataFile" name="dataFile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataType" class="form-label">نوع البيانات</label>
+                        <select class="form-select" id="dataType" name="dataType">
+                            <option value="email" selected>بريد إلكتروني</option>
+                            <option value="user">اسم مستخدم</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="separator" class="form-label">الفاصل بين القيمة وكلمة المرور</label>
+                        <input type="text" class="form-control" id="separator" name="separator" value=":" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">بدء الاستيراد</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

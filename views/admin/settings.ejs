@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - مدير قواعد البيانات</title>
+    <link rel="stylesheet" href="/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/admin_nav') %>
+
+    <div class="container mt-4">
+        <h1>إعدادات الموقع</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/admin/settings" method="POST">
+                    <div class="mb-3">
+                        <label for="siteTitle" class="form-label">عنوان الموقع</label>
+                        <input type="text" class="form-control" id="siteTitle" name="siteTitle" value="<%= settings.siteTitle || 'مدير قواعد البيانات' %>">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="hidden" name="publicSearchEnabled" value="off"> <!-- sends 'off' if checkbox is not checked -->
+                        <input type="checkbox" class="form-check-input" id="publicSearchEnabled" name="publicSearchEnabled" value="on" <%= settings.publicSearchEnabled === 'on' ? 'checked' : '' %>>
+                        <label class="form-check-label" for="publicSearchEnabled">السماح للزوار بالبحث في قواعد البيانات</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

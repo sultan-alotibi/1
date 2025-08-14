@@ -1,0 +1,14 @@
+# Passenger (Phusion) specific settings for Node.js app
+PassengerAppRoot /path/to/your/app/root
+PassengerAppType node
+PassengerStartupFile server.js
+
+# For other setups, you might need to proxy requests
+# This is a general example, the user might need to adjust it based on their host
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^$ http://127.0.0.1:PORT/ [P,L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ http://127.0.0.1:PORT/$1 [P,L]
+</IfModule>
