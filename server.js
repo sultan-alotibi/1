@@ -39,11 +39,7 @@ app.use(express.json());
 
 // Basic home route
 app.get('/', (req, res) => {
-    // We will add stats here later
-    db.get("SELECT value FROM settings WHERE key = 'siteTitle'", (err, row) => {
-        const siteTitle = row ? row.value : 'Database Manager';
-        res.render('index', { title: 'Home', siteTitle: siteTitle });
-    });
+    res.render('index');
 });
 
 app.get('/search', (req, res) => {
